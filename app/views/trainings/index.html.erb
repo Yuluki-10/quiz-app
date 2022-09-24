@@ -1,1 +1,9 @@
 <% provide(:title, "トレーニング一覧") %>
+<h2>トレーニング一覧</h2>
+<div>
+  <% @trainings.each do |training| %>
+    <div>
+      <%= link_to "#{training.title}", training_path(training) %>
+    </div>
+  <% end %>
+</div>
