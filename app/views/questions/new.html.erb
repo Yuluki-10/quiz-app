@@ -1,2 +1,13 @@
 <% provide(:title, "問題作成ページ") %>
 <h3><%= @training.title %>の問題を作成</h3>
+<%= form_with model: [@training ,@question], local:true do |f| %>
+  <%= f.label :content, "問題" %>
+  <%= f.text_field :content %>
+  <%= f.hidden_field :training_id, :value => @training.id %>
+    <%= f.fields_for :choices do |c| %>
+    <%= c.label :content, "選択肢" %>
+    <%= c.text_field :content %>
+  <% end %>
+
+  <p><%= f.submit %></p>
+<% end %>

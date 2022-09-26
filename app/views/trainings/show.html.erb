@@ -10,3 +10,13 @@
     allowfullscreen: true
 ) %>
 <%= content_tag(:div, iframe, class: 'youtube-container') %>
+<div>
+  <% @training.questions.each do |q| %>
+    <p>問題 ▶︎ <%= q.content %></p>
+    <ul>
+      <% q.choices.each do |c| %>
+        <li><%= c.content %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
