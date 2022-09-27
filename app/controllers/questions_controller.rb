@@ -18,6 +18,20 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def answer
+    @training = Training.find(params[:training_id])
+    @question = Question.find(params[:id])
+    choice_number = params[:user_answer][:answer].to_i - 1
+    # m = params[:user_answer][:answer]
+    if @question.choices[choice_number].is_answer == true
+      #params[:answer]-1番目の,@question.choicesのis_answerがtrueなら正解
+      flash[:notice] = "#{choice_number}は正解です"
+    else
+      flash[:notice] = "#{choice_number}は不正解です"
+    end
+    redirect_to training_path(@training)
+  end
+
   def show
   end
 

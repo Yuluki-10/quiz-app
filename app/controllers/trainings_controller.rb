@@ -24,6 +24,7 @@ class TrainingsController < ApplicationController
   def show
     @training = Training.find(params[:id])
     # @question = @training.questions
+    @user_answer = UserAnswer.new
   end
 
   private
