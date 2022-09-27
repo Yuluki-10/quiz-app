@@ -3,7 +3,7 @@ class CreateUserAnswers < ActiveRecord::Migration[6.1]
     create_table :user_answers do |t|
       t.references :user, null: false, foreign_key: true
       t.references :question, null: false, foreign_key: true
-      t.boolean :result
+      t.boolean :result, null: false, default: false
 
       t.timestamps
     end
