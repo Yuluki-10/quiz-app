@@ -15,7 +15,7 @@
     <p>問題 ▶︎ <%= q.content %></p>
     <ul>
       <% q.choices.each do |c| %>
-        <li><%= c.content %></li>
+        <li><%= c.content %><%= "◀︎正解です" if c.is_answer %></li>
       <% end %>
     </ul>
   <% end %>

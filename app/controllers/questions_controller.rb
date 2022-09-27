@@ -23,6 +23,10 @@ class QuestionsController < ApplicationController
 
   private
     def question_params
-      params.require(:question).permit(:training_id, :content, choices_attributes: [:content, :is_answer])
+      params.require(:question).permit(
+        :training_id,
+        :content,
+        choices_attributes: [:content, :is_answer, :_destroy]
+      )
     end
 end

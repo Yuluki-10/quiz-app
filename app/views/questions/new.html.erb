@@ -1,12 +1,18 @@
 <% provide(:title, "問題作成ページ") %>
 <h3><%= @training.title %>の問題を作成</h3>
 <%= form_with model: [@training ,@question], local:true do |f| %>
-  <%= f.label :content, "問題" %>
-  <%= f.text_field :content %>
-  <%= f.hidden_field :training_id, :value => @training.id %>
-    <%= f.fields_for :choices do |c| %>
-    <%= c.label :content, "選択肢" %>
-    <%= c.text_field :content %>
+  <div>
+    <%= f.label :content, "問題" %>
+    <%= f.text_field :content %>
+    <%= f.hidden_field :training_id, :value => @training.id %>
+  </div>
+  <%= f.fields_for :choices do |c| %>
+    <div>
+      <%= c.label :content, "選択肢" %>
+      <%= c.text_field :content %>
+      <%= c.check_box :is_answer, {class: ""}, true, false %>
+      <%= c.label :is_answer, "正解ならチェック" %>
+    </div>
   <% end %>
 
   <p><%= f.submit %></p>
