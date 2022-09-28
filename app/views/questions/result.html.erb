@@ -1,2 +1,20 @@
 <% provide(:title, "回答詳細") %>
 <h3>問題の回答結果</h3>
+<h3>トレーニング名 ▶︎ <%= @training.title %></h3>
+<div>
+  <% @questions.each do |q| %>
+    <div>
+      <%= q.content %>
+      <%= q.choices.corrected[0].id %>
+      <% @user_choices.each do |uc| %>
+        <% if uc.question_id == q.id %>
+          <p>あなたが選んだ選択肢は<%= uc.choice_id %></p>
+        <% end %>
+      <% end %>
+
+      <% q.choices.corrected.each do |c| %>
+        <%= c.content %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

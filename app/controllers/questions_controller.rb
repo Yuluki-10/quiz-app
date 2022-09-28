@@ -25,17 +25,9 @@ class QuestionsController < ApplicationController
 
     params[:user_answer].each do |d|
       # binding.pry
-      q_id = d[0].delete("answer_").to_i
-      question = Question.find(q_id)
-      choice_number = d[1].to_i - 1
-      if question.choices[choice_number].is_answer == true
-        #params[:answer]-1番目の,@question.choicesのis_answerがtrueなら正解
-        ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: q_id)
-        ua.update(result: true)
-      else
-        ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: q_id)
-        ua.update(result: false)
-      end
+      q_id = d[0].delete("choice_id_").to_i
+      c_id = d[1]
+      UserAnswer.find_or_create_by(user_id: current_user.id, question_id: q_id, choice_id: c_id)
     end
 
     redirect_to result_training_questions_path(@training)
@@ -43,6 +35,10 @@ class QuestionsController < ApplicationController
 
   # GET) 回答後の、ユーザーごとの結果ページ。トレーニングごとに作成
   def result
+    @training = Training.find(params[:training_id])
+    @questions = Question.where(training_id: params[:training_id]).includes(:choices, :user_answers)
+    @user_choices = UserAnswer.where(user_id: current_user.id)
+    # binding.pry
   end
 
 
@@ -50,6 +46,7 @@ class QuestionsController < ApplicationController
     def question_params
       params.require(:question).permit(
         :training_id,
+        :number,
         :content,
         choices_attributes: [:content, :is_answer, :_destroy]
       )

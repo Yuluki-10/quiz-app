@@ -20,15 +20,10 @@
         <% end %>
       </ol>
       <% if user_signed_in? %>
-        <h3>ログインしているので問題に答える</h3>
-          <%= f.radio_button :"answer_#{q.id}", '1' %>
-          <%= f.label :"answer_#{q.id}", '1が正解', value: 1 %>
-          <%= f.radio_button :"answer_#{q.id}", '2' %>
-          <%= f.label :"answer_#{q.id}", '2が正解', value: 2 %>
-          <%= f.radio_button :"answer_#{q.id}", '3' %>
-          <%= f.label :"answer_#{q.id}", '3が正解', value: 3 %>
-          <%= f.radio_button :"answer_#{q.id}", '4' %>
-          <%= f.label :"answer_#{q.id}", '4が正解', value: 4 %>
+        <h3>radio_buttons</h3>
+          <% q.choices.all.each do |c| %>
+            <label><%= f.radio_button(:"choice_id_#{q.id}", c.id) %><%= c.content %></label>
+          <% end %>
       <% end %>
     <% end %>
     <div>
