@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2022_09_22_062525) do
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "content", null: false
     t.bigint "training_id", null: false
+    t.integer "number", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["training_id"], name: "index_questions_on_training_id"
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(version: 2022_09_22_062525) do
 
   create_table "trainings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
+    t.integer "categories"
     t.text "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -38,11 +40,10 @@ ActiveRecord::Schema.define(version: 2022_09_22_062525) do
 
   create_table "user_answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "question_id", null: false
-    t.boolean "result", default: false, null: false
+    t.bigint "choice_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["question_id"], name: "index_user_answers_on_question_id"
+    t.index ["choice_id"], name: "index_user_answers_on_choice_id"
     t.index ["user_id"], name: "index_user_answers_on_user_id"
   end
 
@@ -61,6 +62,6 @@ ActiveRecord::Schema.define(version: 2022_09_22_062525) do
 
   add_foreign_key "choices", "questions"
   add_foreign_key "questions", "trainings"
-  add_foreign_key "user_answers", "questions"
+  add_foreign_key "user_answers", "choices"
   add_foreign_key "user_answers", "users"
 end

@@ -21,32 +21,13 @@ class TrainingsController < ApplicationController
 
   end
 
+  # GET) 個別トレーニングページ
   def show
     @training = Training.find(params[:id])
     # @question = @training.questions
     @user_answer = UserAnswer.new
   end
 
-  def answer
-    @training = Training.find(params[:id])
-
-    params[:user_answer].each do |d|
-      # binding.pry
-      q_id = d[0].delete("answer_").to_i
-      question = Question.find(q_id)
-      choice_number = d[1].to_i - 1
-      if question.choices[choice_number].is_answer == true
-        #params[:answer]-1番目の,@question.choicesのis_answerがtrueなら正解
-        ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: q_id)
-        ua.update(result: true)
-      else
-        ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: q_id)
-        ua.update(result: false)
-      end
-    end
-
-    redirect_to training_path(@training)
-  end
 
   private
     def training_params

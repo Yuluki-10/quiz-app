@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+
   def new
     @training = Training.find(params[:training_id])
     @question = Question.new
@@ -18,25 +19,32 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # def answer
-  #   @training = Training.find(params[:training_id])
-  #   @question = Question.find(params[:id])
-  #   choice_number = params[:user_answer][:answer].to_i - 1
-  #   if @question.choices[choice_number].is_answer == true
-  #     #params[:answer]-1番目の,@question.choicesのis_answerがtrueなら正解
-  #     ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: params[:id])
-  #     ua.update(result: true)
-  #     flash[:notice] = "#{choice_number}は正解です"
-  #   else
-  #     ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: params[:id])
-  #     ua.update(result: false)
-  #     flash[:notice] = "#{choice_number}は不正解です"
-  #   end
-  #   redirect_to training_path(@training)
-  # end
+  # POST) ユーザーが問題に答える
+  def answer
+    @training = Training.find(params[:training_id])
 
-  def show
+    params[:user_answer].each do |d|
+      # binding.pry
+      q_id = d[0].delete("answer_").to_i
+      question = Question.find(q_id)
+      choice_number = d[1].to_i - 1
+      if question.choices[choice_number].is_answer == true
+        #params[:answer]-1番目の,@question.choicesのis_answerがtrueなら正解
+        ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: q_id)
+        ua.update(result: true)
+      else
+        ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: q_id)
+        ua.update(result: false)
+      end
+    end
+
+    redirect_to result_training_questions_path(@training)
   end
+
+  # GET) 回答後の、ユーザーごとの結果ページ。トレーニングごとに作成
+  def result
+  end
+
 
   private
     def question_params

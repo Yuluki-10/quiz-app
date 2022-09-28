@@ -3,10 +3,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'trainings#index'
   resources :trainings do
-    member do
-      post :answer
-    end
     resources :questions do
+      collection do
+        post :answer
+        get :result
+      end
     end
   end
 end
