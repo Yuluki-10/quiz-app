@@ -27,6 +27,27 @@ class TrainingsController < ApplicationController
     @user_answer = UserAnswer.new
   end
 
+  def answer
+    @training = Training.find(params[:id])
+
+    params[:user_answer].each do |d|
+      binding.pry
+      q_id = d.match(/answer_/)[1]
+      question = Question.find((q_id).to_i)
+      choice_number = d.("answer_#{q_id}").to_i - 1
+      if question.choices[choice_number].is_answer == true
+        #params[:answer]-1番目の,@question.choicesのis_answerがtrueなら正解
+        ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: d.question_id)
+        ua.update(result: true)
+      else
+        ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: d.question_id)
+        ua.update(result: false)
+      end
+    end
+
+    redirect_to training_path(@training)
+  end
+
   private
     def training_params
       params.require(:training).permit(:title, :url)

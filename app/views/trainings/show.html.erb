@@ -11,26 +11,29 @@
 ) %>
 <%= content_tag(:div, iframe, class: 'youtube-container') %>
 <div>
-  <% @training.questions.each do |q| %>
-    <p>問題 ▶︎ <%= q.content %></p>
-    <ol>
-      <% q.choices.each do |c| %>
-        <li><%= c.content %><%= "◀︎正解です" if c.is_answer %></li>
-      <% end %>
-    </ol>
-    <% if user_signed_in? %>
-      <h3>ログインしているので問題に答える</h3>
-      <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/questions/#{q.id}/answer", method: :post, local: true do |f| %>
-        <%= f.radio_button :answer, '1' %>
-        <%= f.label :answer, '1が正解', value: 1 %>
-        <%= f.radio_button :answer, '2' %>
-        <%= f.label :answer, '2が正解', value: 2 %>
-        <%= f.radio_button :answer, '3' %>
-        <%= f.label :answer, '3が正解', value: 3 %>
-        <%= f.radio_button :answer, '4' %>
-        <%= f.label :answer, '4が正解', value: 4 %>
-        <%= f.submit "答える" %>
+  <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/answer", method: :post, local: true do |f| %>
+    <% @training.questions.each do |q| %>
+      <p>問題 ▶︎ <%= q.content %></p>
+      <ol>
+        <% q.choices.each do |c| %>
+          <li><%= c.content %><%= "◀︎正解です" if c.is_answer %></li>
+        <% end %>
+      </ol>
+      <% if user_signed_in? %>
+        <h3>ログインしているので問題に答える</h3>
+          <%= f.radio_button :"answer_#{q.id}", '1' %>
+          <%= f.label :"answer_#{q.id}", '1が正解', value: 1 %>
+          <%= f.radio_button :"answer_#{q.id}", '2' %>
+          <%= f.label :"answer_#{q.id}", '2が正解', value: 2 %>
+          <%= f.radio_button :"answer_#{q.id}", '3' %>
+          <%= f.label :"answer_#{q.id}", '3が正解', value: 3 %>
+          <%= f.radio_button :"answer_#{q.id}", '4' %>
+          <%= f.label :"answer_#{q.id}", '4が正解', value: 4 %>
+          <%= f.hidden_field :"question_id_#{q.id}", :value => q.id %>
       <% end %>
     <% end %>
+    <div>
+      <%= f.submit "答える" %>
+    </div>
   <% end %>
 </div>
