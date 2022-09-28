@@ -29,7 +29,6 @@
           <%= f.label :"answer_#{q.id}", '3が正解', value: 3 %>
           <%= f.radio_button :"answer_#{q.id}", '4' %>
           <%= f.label :"answer_#{q.id}", '4が正解', value: 4 %>
-          <%= f.hidden_field :"question_id_#{q.id}", :value => q.id %>
       <% end %>
     <% end %>
     <div>
