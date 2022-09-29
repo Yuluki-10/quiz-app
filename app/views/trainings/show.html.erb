@@ -13,14 +13,14 @@
 <div>
   <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/questions/answer", method: :post, local: true do |f| %>
     <% @training.questions.each do |q| %>
-      <p>問題<%= q.number %> ▶︎ <%= q.content %></p>
+      <h3>問題<%= q.number %> ▶︎ <%= q.content %></h3>
       <ol>
         <% q.choices.each do |c| %>
           <li><%= c.content %><%= "◀︎正解です" if c.is_answer %></li>
         <% end %>
       </ol>
       <% if user_signed_in? %>
-        <h3>ログインしているので答える</h3>
+        <h4>ログインしているので答える</h4>
           <% q.choices.all.each do |c| %>
             <label><%= f.radio_button(:"choice_id_#{q.id}", c.id) %><%= c.content %></label>
           <% end %>

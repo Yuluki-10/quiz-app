@@ -1,10 +1,11 @@
 <% provide(:title, "回答詳細") %>
 <h3>問題の回答結果</h3>
+<h3><%= current_user.name %></h3>
 <h3>トレーニング名 ▶︎ <%= @training.title %></h3>
 <div>
   <% @questions.each do |q| %>
     <div>
-      <p>問題<%= q.number %> ▶︎ <%= q.content %></p>
+      <h3>問題<%= q.number %> ▶︎ <%= q.content %></h3>
       <p>答え ▶︎ <%= q.choices.corrected[0].content %></p>
       <% @user_choices.each do |uc| %>
         <% if uc.question_id == q.id %>
