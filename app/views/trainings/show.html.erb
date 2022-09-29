@@ -13,21 +13,22 @@
 <div>
   <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/questions/answer", method: :post, local: true do |f| %>
     <% @training.questions.each do |q| %>
-      <p>問題 ▶︎ <%= q.content %></p>
+      <p>問題<%= q.number %> ▶︎ <%= q.content %></p>
       <ol>
         <% q.choices.each do |c| %>
           <li><%= c.content %><%= "◀︎正解です" if c.is_answer %></li>
         <% end %>
       </ol>
       <% if user_signed_in? %>
-        <h3>radio_buttons</h3>
+        <h3>ログインしているので答える</h3>
           <% q.choices.all.each do |c| %>
             <label><%= f.radio_button(:"choice_id_#{q.id}", c.id) %><%= c.content %></label>
           <% end %>
       <% end %>
+      <div>====================================================</div>
     <% end %>
     <div>
-      <%= f.submit "答える" %>
+      <%= f.submit "答える" if @training.questions.present? %>
     </div>
   <% end %>
 </div>

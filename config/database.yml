@@ -14,7 +14,7 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: <%= ENV['DATABASE_DEV_PASSWORD'] %>
+  password: <%= ENV['DATABASE_DEV_PASSWORD'] || '' %> #.envで設定したパスワードがあれば使用する（左辺）。なければ使用しない（右辺）。
   socket: /tmp/mysql.sock
 
 development:

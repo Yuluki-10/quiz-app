@@ -6,11 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 if Rails.env.development?
-  User.create!(
-    name: "1user",
-    email: "1@mail.com",
-    password: "1userpass"
-  )
+  3.times do |n|
+    User.create!(
+      name: "user#{n + 1}",
+      email: "#{n + 1}@mail.com",
+      password: "userpass#{n + 1}"
+    )
+  end
   Training.create!(
     title: "figmaのトレーニング①",
     url: "https://www.youtube.com/embed/oMMllsEYUoQ"
