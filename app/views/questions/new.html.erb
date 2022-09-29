@@ -12,8 +12,7 @@
     <div>
       <%= c.label :content, "選択肢" %>
       <%= c.text_field :content %>
-      <%= c.check_box :is_answer, {class: ""}, true, false %>
-      <%= c.label :is_answer, "正解ならチェック" %>
+      <label>正解ならチェック<%= radio_button_tag "question[choices_attributes][is_answer]", c.index, c.object.is_answer %></label>
     </div>
   <% end %>
 

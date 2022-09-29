@@ -10,6 +10,10 @@ class QuestionsController < ApplicationController
 
   def create
     @training = Training.find(params[:training_id])
+    correct_index = params[:question][:choices_attributes][:is_answer]
+    # binding.pry
+    params[:question][:choices_attributes]["#{correct_index}"][:is_answer] = true
+
     @question = Question.new(question_params)
     if @question.save
       redirect_to trainings_path, notice: "問題を作成しました"
