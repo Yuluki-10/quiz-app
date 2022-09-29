@@ -10,6 +10,8 @@
     allowfullscreen: true
 ) %>
 <%= content_tag(:div, iframe, class: 'youtube-container') %>
+<%= link_to "編集する", edit_training_path(@training) %>
+<%= link_to "問題を作成する", new_training_question_path(@training) %>
 <div>
   <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/questions/answer", method: :post, local: true do |f| %>
     <% @questions.each do |q| %>

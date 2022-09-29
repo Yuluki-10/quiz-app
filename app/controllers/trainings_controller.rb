@@ -18,7 +18,6 @@ class TrainingsController < ApplicationController
       flash[:notice] = "トレーニングが作成されました"
       redirect_to trainings_path
     end
-
   end
 
   # GET) 個別トレーニングページ
@@ -28,6 +27,19 @@ class TrainingsController < ApplicationController
     @user_answer = UserAnswer.new
   end
 
+  def edit
+    @training = Training.find(params[:id])
+  end
+
+  def update
+    if training = Training.find(params[:id])
+      @training = training.update(training_params)
+      flash[:notice] = "トレーニングを編集しました"
+      redirect_to training_path
+    else
+      return redirect_to trainings_path
+    end
+  end
 
   private
     def training_params

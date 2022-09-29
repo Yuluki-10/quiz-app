@@ -1,0 +1,16 @@
+<% provide(:title, "トレーニングの編集") %>
+<h2>トレーニングの編集</h2>
+<%= form_with model: @training, url: training_path, method: :patch, local: true do |f| %>
+  <div>
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    （未定）カテゴリー
+  </div>
+  <div>
+    <%= f.label :url, "動画URL" %>
+    <%= f.url_field :url %>
+  </div>
+    <%= f.submit %>
+<% end %>
