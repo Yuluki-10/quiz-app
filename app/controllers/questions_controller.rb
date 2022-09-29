@@ -24,10 +24,10 @@ class QuestionsController < ApplicationController
     @training = Training.find(params[:training_id])
 
     params[:user_answer].each do |d|
-      # binding.pry
       q_id = d[0].delete("choice_id_").to_i
       c_id = d[1]
-      UserAnswer.find_or_create_by(user_id: current_user.id, question_id: q_id, choice_id: c_id)
+      ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: q_id)
+      ua.update(choice_id: c_id)
     end
 
     redirect_to result_training_questions_path(@training)
@@ -38,7 +38,6 @@ class QuestionsController < ApplicationController
     @training = Training.find(params[:training_id])
     @questions = Question.where(training_id: params[:training_id]).includes(:choices, :user_answers)
     @user_choices = UserAnswer.where(user_id: current_user.id)
-    # binding.pry
   end
 
 

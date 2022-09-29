@@ -4,17 +4,19 @@
 <div>
   <% @questions.each do |q| %>
     <div>
-      <%= q.content %>
-      <%= q.choices.corrected[0].id %>
+      <p>問題<%= q.number %> ▶︎ <%= q.content %></p>
+      <p>答え ▶︎ <%= q.choices.corrected[0].content %></p>
       <% @user_choices.each do |uc| %>
         <% if uc.question_id == q.id %>
-          <p>あなたが選んだ選択肢は<%= uc.choice_id %></p>
+          <p>あなたが選んだ答え▶︎ <%= q.choices.find{ |a| a[:id] == uc.choice_id }.content %></p>
+          <% if uc.choice_id == q.choices.corrected[0].id %>
+            <p>あなたは正解しました</p>
+          <% else %>
+            <p>あなたは不正解です</p>
+          <% end %>
         <% end %>
       <% end %>
-
-      <% q.choices.corrected.each do |c| %>
-        <%= c.content %>
-      <% end %>
     </div>
+    <div>=========================</div>
   <% end %>
 </div>
