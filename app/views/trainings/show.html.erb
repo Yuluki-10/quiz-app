@@ -27,6 +27,7 @@
             <label><%= f.radio_button(:"choice_id_#{q.id}", c.id) %><%= c.content %></label>
           <% end %>
       <% end %>
+      <%= link_to "問題を編集する", edit_training_question_path(@training, q) %>
       <div>====================================================</div>
     <% end %>
     <div>

@@ -44,6 +44,30 @@ class QuestionsController < ApplicationController
     @user_choices = UserAnswer.where(user_id: current_user.id)
   end
 
+  def edit
+    @training = Training.find(params[:training_id])
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @training = Training.find(params[:training_id])
+    @question = Question.find(params[:id])
+
+    # 全ての選択肢の正誤をfalseにリセットする
+    [*0..3].each do |i|
+      params[:question][:choices_attributes]["#{i}"][:is_answer] = false
+    end
+
+    correct_index = params[:question][:choices_attributes][:is_answer]
+    params[:question][:choices_attributes]["#{correct_index}"][:is_answer] = true
+
+    if @question.update(question_params)
+      redirect_to trainings_path, notice: "問題を編集しました"
+    else
+      flash.now[:alert] = @question.errors.full_messages.join("\n")
+      render :edit, alert: "編集できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
+    end
+  end
 
   private
     def question_params
@@ -51,7 +75,7 @@ class QuestionsController < ApplicationController
         :training_id,
         :number,
         :content,
-        choices_attributes: [:content, :is_answer, :_destroy]
+        choices_attributes: [:id, :content, :is_answer, :_destroy] # :idを渡さないと、accepts_nested_attributes_forで入れ子になる値の編集更新ができない
       )
     end
 end
