@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
   # GET) 回答後の、ユーザーごとの結果ページ。トレーニングごとに作成
   def result
     @training = Training.find(params[:training_id])
-    @questions = Question.where(training_id: params[:training_id]).includes(:choices, :user_answers)
+    @questions = Question.where(training_id: params[:training_id]).includes(:choices, :user_answers).order(number: "ASC")
     @user_choices = UserAnswer.where(user_id: current_user.id)
   end
 

@@ -12,7 +12,7 @@
 <%= content_tag(:div, iframe, class: 'youtube-container') %>
 <div>
   <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/questions/answer", method: :post, local: true do |f| %>
-    <% @training.questions.each do |q| %>
+    <% @questions.each do |q| %>
       <h3>問題<%= q.number %> ▶︎ <%= q.content %></h3>
       <ol>
         <% q.choices.each do |c| %>

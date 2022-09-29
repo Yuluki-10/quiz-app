@@ -24,7 +24,7 @@ class TrainingsController < ApplicationController
   # GET) 個別トレーニングページ
   def show
     @training = Training.find(params[:id])
-    # @question = @training.questions
+    @questions = @training.questions.order(number: "ASC")
     @user_answer = UserAnswer.new
   end
 
