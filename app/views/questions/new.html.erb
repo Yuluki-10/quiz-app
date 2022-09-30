@@ -11,8 +11,8 @@
   <%= f.fields_for :choices do |c| %>
     <div>
       <%= c.label :content, "選択肢" %>
-      <%= c.text_field :content %>
-      <label>正解ならチェック<%= radio_button_tag "question[choices_attributes][is_answer]", c.index, c.object.is_answer %></label>
+      <%= c.text_field :content,required: true %>
+      <label>正解ならチェック<%= radio_button_tag "question[choices_attributes][is_answer]", c.index, c.object.is_answer, required: true %></label>
     </div>
   <% end %>
 

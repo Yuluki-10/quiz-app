@@ -18,8 +18,11 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to trainings_path, notice: "問題を作成しました"
     else
-      flash.now[:alert] = @question.errors.full_messages.join("\n")
-      render :new, alert: "登録できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
+      # flash[:alert] = "作成できませんでした"
+      flash[:alert] = @question.errors.full_messages.join("\n")
+      # binding.pry
+      redirect_back(fallback_location: root_path)
+      # render :new
     end
   end
 
@@ -64,8 +67,8 @@ class QuestionsController < ApplicationController
     if @question.update(question_params)
       redirect_to trainings_path, notice: "問題を編集しました"
     else
-      flash.now[:alert] = @question.errors.full_messages.join("\n")
-      render :edit, alert: "編集できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
+      flash[:alert] = "編集できませんでした"
+      return render :edit
     end
   end
 
