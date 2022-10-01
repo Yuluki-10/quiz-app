@@ -18,9 +18,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to trainings_path, notice: "問題を作成しました"
     else
-      # flash[:alert] = "作成できませんでした"
       flash[:alert] = @question.errors.full_messages.join("\n")
-      # binding.pry
       redirect_back(fallback_location: root_path)
       # render :new
     end
@@ -29,6 +27,14 @@ class QuestionsController < ApplicationController
   # POST) ユーザーが問題に答える
   def answer
     @training = Training.find(params[:training_id])
+
+    # ua_i = params[:user_answer].permit!.to_hash.size
+    # 選んだ選択肢が、問題の数分なければバリデーション
+    unless params[:user_answer].permit!.to_hash.size == @training.questions.size
+      flash[:notice] = "全て答えを選んでください"
+      redirect_back(fallback_location: root_path)
+      return
+    end
 
     params[:user_answer].each do |d|
       q_id = d[0].delete("choice_id_").to_i
