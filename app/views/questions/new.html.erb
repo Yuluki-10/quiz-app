@@ -5,7 +5,7 @@
     <%= f.label :number, "設問番号" %>
     <%= f.select :number, [*1..20], { include_blank: '--'} %>
     <%= f.label :content, "設問内容" %>
-    <%= f.text_field :content %>
+    <%= f.text_area :content %>
     <%= f.hidden_field :training_id, :value => @training.id %>
   </div>
   <%= f.fields_for :choices do |c| %>

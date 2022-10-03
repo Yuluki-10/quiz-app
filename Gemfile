@@ -36,6 +36,11 @@ gem 'devise'
 # 2022/09/28）テスト用
 gem 'pry-rails'
 
+# 2022/10/03）Markdown記法
+gem 'redcarpet'
+# 2022/10/03）コードのシンタックスハイライト
+gem 'rouge'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
