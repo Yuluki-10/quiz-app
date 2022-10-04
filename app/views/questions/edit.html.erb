@@ -2,11 +2,13 @@
 <h3><%= @training.title %>の問題を編集</h3>
 <%= form_with model: [@training ,@question], url: training_question_path, method: :patch, local:true do |f| %>
   <div>
+    <%= f.hidden_field :training_id, :value => @training.id %>
     <%= f.label :number, "設問番号" %>
     <%= f.select :number, [*1..20], { include_blank: '--'} %>
+  </div>
+  <div>
     <%= f.label :content, "設問内容" %>
-    <%= f.text_area :content %>
-    <%= f.hidden_field :training_id, :value => @training.id %>
+    <%= f.text_area :content, cols:"40" ,rows:"20" %>
   </div>
   <%= f.fields_for :choices do |c| %>
     <div>
