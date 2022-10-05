@@ -11,26 +11,32 @@
   </head>
 
   <body>
-    <header>
-      <%= link_to "トレーニング一覧", root_path %>
-      <%= link_to "トレーニングを作成する", new_training_path %>
-      <% if user_signed_in? %> 
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      <% else %> 
-        <%= link_to "ログイン", new_user_session_path %>
-        <%= link_to "新規登録", new_user_registration_path %>
-      <% end %>
+    <header class="q-container">
+      <div class="header__left">
+        <%= link_to "トレーニング一覧", root_path %>
+      </div>
+      <div class="header__right">
+        <% if user_signed_in? %> 
+          <%= link_to "トレーニングを作成する", new_training_path %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to "ログイン", new_user_session_path %>
+          <%= link_to "新規登録", new_user_registration_path %>
+        <% end %>
+      </div>
     </header>
 
-    <!-- メッセージの表示 -->
-    <% if notice %>
-      <%= simple_format(notice) %>
-    <% end %>
+    <main class="q-container">
+      <!-- メッセージの表示 -->
+      <% if notice %>
+        <%= simple_format(notice) %>
+      <% end %>
 
-    <% if alert %>
-      <%= simple_format(alert) %>
-    <% end %>
+      <% if alert %>
+        <%= simple_format(alert) %>
+      <% end %>
 
-    <%= yield %>
+      <%= yield %>
+    </main>
   </body>
 </html>

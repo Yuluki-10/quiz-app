@@ -14,8 +14,56 @@
  *= require_self
  */
 
+$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/brands';
+@import '@fortawesome/fontawesome-free/scss/v4-shims';
+
 @import 'rouge';
 
 pre.highlight {
   background-color: #364549; //コードの背景色
+}
+
+.q-container{
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 0 10px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+main {
+  background-color: #eee;
+}
+
+a {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  background-color: #3498db;
+  cursor: pointer;
+  padding: 16px 16px 16px 32px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 700;
+  &:hover{
+    opacity: 0.8;
+  }
+  &::before{
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    content: "\f35d";
+    color: #FFD464;
+  }
 }

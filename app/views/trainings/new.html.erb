@@ -1,6 +1,6 @@
 <% provide(:title, "トレーニング作成") %>
-<h2>トレーニング作成</h2>
-<%= form_with model: @training, url: trainings_path, method: :post, local: true do |f| %>
+<h2 class="trainings__title">トレーニング作成</h2>
+<%= form_with model: @training, url: trainings_path, method: :post, local: true, class: 'trainings__form' do |f| %>
   <div>
     <%= f.label :title, "タイトル" %>
     <%= f.text_field :title %>
