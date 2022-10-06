@@ -14,14 +14,19 @@
  *= require_self
  */
 
-$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
-@import '@fortawesome/fontawesome-free/scss/fontawesome';
-@import '@fortawesome/fontawesome-free/scss/solid';
-@import '@fortawesome/fontawesome-free/scss/regular';
-@import '@fortawesome/fontawesome-free/scss/brands';
-@import '@fortawesome/fontawesome-free/scss/v4-shims';
+// $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
+// @import '@fortawesome/fontawesome-free/scss/fontawesome';
+// @import '@fortawesome/fontawesome-free/scss/solid';
+// @import '@fortawesome/fontawesome-free/scss/regular';
+// @import '@fortawesome/fontawesome-free/scss/brands';
+// @import '@fortawesome/fontawesome-free/scss/v4-shims';
 
 @import 'rouge';
+
+body{
+  font-size: 1.2rem;
+
+}
 
 pre.highlight {
   background-color: #364549; //コードの背景色
@@ -66,4 +71,14 @@ a {
     content: "\f35d";
     color: #FFD464;
   }
+}
+
+span.-required{
+  color: red;
+  margin-left: 5px;
+}
+
+/* エラーメッセージありの場合の設定 */
+.field_with_errors{
+  display: contents;
 }

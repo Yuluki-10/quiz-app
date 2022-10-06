@@ -1,14 +1,16 @@
 <% provide(:title, "トレーニング作成") %>
 <h2 class="trainings__title">トレーニング作成</h2>
 <%= form_with model: @training, url: trainings_path, method: :post, local: true, class: 'trainings__form' do |f| %>
-  <div>
-    <%= f.label :title, "タイトル" %>
+  <div class="trainings__form-item">
+    <%= f.label :title do %>
+      タイトル<span class="-required">*</span>
+    <% end %>
     <%= f.text_field :title %>
   </div>
-  <div>
+  <div class="trainings__form-item">
     （未定）カテゴリー
   </div>
-  <div>
+  <div class="trainings__form-item">
     <%= f.label :url, "動画URL" %>
     <%= f.url_field :url %>
   </div>
