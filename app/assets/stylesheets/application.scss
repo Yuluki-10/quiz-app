@@ -28,8 +28,15 @@ body{
 
 }
 
+div.highlight{
+  width: 80%;
+  margin-inline: auto;
+}
+
 pre.highlight {
   background-color: #364549; //コードの背景色
+  overflow-x: scroll;
+  padding: 20px;
 }
 
 .q-container{
