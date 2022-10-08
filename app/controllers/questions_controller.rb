@@ -1,26 +1,27 @@
 class QuestionsController < ApplicationController
 
+  # GET) クイズ作成ページ
   def new
     @training = Training.find(params[:training_id])
     @question = Question.new
+    # 選択肢を4つ作成できるようにbuildする
     4.times do
       @question.choices.build
     end
   end
 
+  # POST) クイズの作成
   def create
     @training = Training.find(params[:training_id])
-    correct_index = params[:question][:choices_attributes][:is_answer]
-    # binding.pry
-    params[:question][:choices_attributes]["#{correct_index}"][:is_answer] = true
 
+    correct_index = params[:question][:choices_attributes][:is_answer] # 「正解」とした選択肢が、どの番号か取得する
+    params[:question][:choices_attributes]["#{correct_index}"][:is_answer] = true # 選択肢を「正解」に設定する
     @question = Question.new(question_params)
     if @question.save
       redirect_to trainings_path, notice: "問題を作成しました"
     else
       flash[:alert] = @question.errors.full_messages.join("\n")
-      redirect_back(fallback_location: root_path)
-      # render :new
+      redirect_back(fallback_location: root_path) # 前のページに戻る
     end
   end
 
@@ -28,7 +29,6 @@ class QuestionsController < ApplicationController
   def answer
     @training = Training.find(params[:training_id])
 
-    # ua_i = params[:user_answer].permit!.to_hash.size
     # 選んだ選択肢が、問題の数分なければバリデーション
     unless params[:user_answer].permit!.to_hash.size == @training.questions.size
       flash[:notice] = "全て答えを選んでください"
@@ -37,8 +37,8 @@ class QuestionsController < ApplicationController
     end
 
     params[:user_answer].each do |d|
-      q_id = d[0].delete("choice_id_").to_i
-      c_id = d[1]
+      q_id = d[0].delete("choice_id_").to_i # "choice_id_問題番号"として格納されているので、問題番号以外の文字列を削除し、数値化する
+      c_id = d[1] # ユーザーがどの選択肢を選んだか
       ua = UserAnswer.find_or_initialize_by(user_id: current_user.id, question_id: q_id)
       ua.update(choice_id: c_id)
     end
@@ -53,20 +53,24 @@ class QuestionsController < ApplicationController
     @user_choices = UserAnswer.where(user_id: current_user.id)
   end
 
+  # GET) クイズの編集ページ
   def edit
     @training = Training.find(params[:training_id])
     @question = Question.find(params[:id])
   end
 
+  # PATCH) クイズの編集
   def update
     @training = Training.find(params[:training_id])
     @question = Question.find(params[:id])
 
-    # 全ての選択肢の正誤をfalseにリセットする
+    # 全ての選択肢の正誤をfalseにリセットする。
+    # [0..3]だとそのままRangeクラスになってしまう（=> [0..3]）。[*0..3]だと連番のArrayになる（=> [0, 1, 2, 3]）。
     [*0..3].each do |i|
       params[:question][:choices_attributes]["#{i}"][:is_answer] = false
     end
 
+    # createの時と同様の処理
     correct_index = params[:question][:choices_attributes][:is_answer]
     params[:question][:choices_attributes]["#{correct_index}"][:is_answer] = true
 

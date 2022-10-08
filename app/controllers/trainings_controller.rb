@@ -1,4 +1,5 @@
 class TrainingsController < ApplicationController
+  # GET) トレーニング一覧
   def index
     @trainings = Training.all
   end
@@ -20,17 +21,19 @@ class TrainingsController < ApplicationController
     end
   end
 
-  # GET) 個別トレーニングページ
+  # GET) トレーニングページ
   def show
     @training = Training.find(params[:id])
     @questions = @training.questions.order(number: "ASC")
     @user_answer = UserAnswer.new
   end
 
+  # GET) トレーニング編集ページ
   def edit
     @training = Training.find(params[:id])
   end
 
+  # PATCH) トレーニングの編集
   def update
     if training = Training.find(params[:id])
       @training = training.update(training_params)
