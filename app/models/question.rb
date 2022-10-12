@@ -7,4 +7,7 @@ class Question < ApplicationRecord
   validates :content, presence: true
   validates :number, presence: true
 
+  # 問題文をAction Textで扱えるようにする
+  has_rich_text :content
+
 end

@@ -6,7 +6,7 @@
     <div class="question__wrapper">
       <h3 class="question__title">問題<%= q.number %> ▼</h3>
       <div class="question__content">
-        <%= markdown(q.content) %>
+        <%= q.content %>
         <ol class="question__selections">
           <% q.choices.each do |c| %>
             <li><%= c.content %><%= "◀︎正解です" if c.is_answer %></li>
