@@ -22,8 +22,10 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Active Storage variant
+# 2022/10/12）（ActiveStorageを使用して）ActionTextで画像を表示させる
 gem 'image_processing', '~> 1.2'
+# 2022/10/12）AWS S3にアップロードする際に必要
+gem 'aws-sdk-s3'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
