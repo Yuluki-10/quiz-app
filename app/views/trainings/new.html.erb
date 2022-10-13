@@ -14,5 +14,9 @@
     <%= f.label :url, "動画URL" %>
     <%= f.url_field :url %>
   </div>
+  <div class="trainings__form-item">
+    <%= f.label :content, "トレーニング内容" %>
+    <%= f.rich_text_area :content %>
+  </div>
     <%= f.submit %>
 <% end %>

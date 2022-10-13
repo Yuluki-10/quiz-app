@@ -11,6 +11,7 @@
     allowfullscreen: true
 ) %>
 <%= content_tag(:div, iframe, class: 'youtube-container') %>
+<%= @training.content %>
 <%= link_to "このトレーニングの問題を作成する", new_training_question_path(@training), class: 'link-btn' %>
 <div>
   <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/questions/answer", method: :post, local: true, class: 'trainings__form' do |f| %>
