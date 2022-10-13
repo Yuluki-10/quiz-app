@@ -39,4 +39,12 @@ trix-editor{
       max-width: 100% !important;
     }
   }
+
+  a{
+    color: #0061a1;
+    background-color: inherit;
+    &::before{
+      content: none;
+    }
+  }
 }
