@@ -14,11 +14,9 @@ if Rails.env.development?
     )
   end
   Training.create!(
-    title: "figmaのトレーニング①",
-    url: "https://www.youtube.com/embed/oMMllsEYUoQ"
+    title: "初めての動画制作"
   )
   Training.create!(
-    title: "figmaのトレーニング②",
-    url: "https://www.youtube.com/embed/IvmzDn9uGzs"
+    title: "figmaのトレーニング"
   )
 end

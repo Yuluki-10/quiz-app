@@ -1,5 +1,5 @@
 class Question < ApplicationRecord
-  belongs_to :training
+  belongs_to :chapter
   has_many :user_answers, dependent: :destroy
   has_many :choices, dependent: :destroy
   # ネストしたモデルを保存するメソッド。非推奨というわけではないが、複雑な処理になるなら「Formオブジェクト」で処理する方が良いかも…

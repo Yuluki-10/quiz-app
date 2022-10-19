@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  chapter_title: MyString
+  url: MyText
+  chapter_num: 1
+  training: one
+
+two:
+  chapter_title: MyString
+  url: MyText
+  chapter_num: 1
+  training: two
