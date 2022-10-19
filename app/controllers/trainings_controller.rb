@@ -23,9 +23,9 @@ class TrainingsController < ApplicationController
 
   # GET) トレーニングページ
   def show
-    @training = Training.find(params[:id])
-    @questions = @training.questions.order(number: "ASC")
-    @user_answer = UserAnswer.new
+    @training = Training.includes(:chapters).find(params[:id])
+    # @questions = @training.questions.order(number: "ASC")
+    # @user_answer = UserAnswer.new
   end
 
   # GET) トレーニング編集ページ
@@ -46,6 +46,6 @@ class TrainingsController < ApplicationController
 
   private
     def training_params
-      params.require(:training).permit(:title, :url, :categories, :content)
+      params.require(:training).permit(:title, :categories)
     end
 end

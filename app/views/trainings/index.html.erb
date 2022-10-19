@@ -4,7 +4,6 @@
   <% @trainings.each do |training| %>
     <div class="trainings__list-item">
       <%= link_to "#{training.title}", training_path(training) %>
-      <%= link_to "問題を作成する", new_training_question_path(training) %>
     </div>
   <% end %>
 </div>

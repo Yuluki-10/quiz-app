@@ -14,9 +14,21 @@ if Rails.env.development?
     )
   end
   Training.create!(
-    title: "初めての動画制作"
+    [
+      {
+        title: "初めての動画制作"
+      },
+      {
+        title: "figmaのトレーニング"
+      }
+    ]
   )
-  Training.create!(
-    title: "figmaのトレーニング"
-  )
+  3.times do |n|
+    Chapter.create!(
+      training_id: Training.first.id,
+      chapter_title: "第#{n}章のタイトルです",
+      url: "https://youtu.be/embed/Vf07C_-rbKM",
+      chapter_num: n
+    )
+  end
 end

@@ -1,39 +1,9 @@
 <% provide(:title, "個別トレーニングページ") %>
 <h2 class="trainings__title"><%= @training.title %></h2>
 <%= link_to "このトレーニング情報を編集する", edit_training_path(@training), class: 'link-btn' %>
-<% iframe = content_tag(
-    :iframe,
-    '', # empty body
-    width: 780,
-    height: 440,
-    src: "#{@training.url}",
-    frameborder: 0,
-    allowfullscreen: true
-) %>
-<%= content_tag(:div, iframe, class: 'youtube-container') %>
-<%= @training.content %>
-<%= link_to "このトレーニングの問題を作成する", new_training_question_path(@training), class: 'link-btn' %>
+<%= link_to "このトレーニングのチャプターを作成する", new_training_chapter_path(@training), class: 'link-btn' %>
 <div>
-  <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/questions/answer", method: :post, local: true, class: 'trainings__form' do |f| %>
-    <% @questions.each do |q| %>
-      <div class="question__wrapper">
-        <%= link_to "この問題を編集する", edit_training_question_path(@training, q), class: 'link-btn' %>
-        <h3 class="question__title">問題<%= q.number %> ▼</h3>
-        <div class="question__content">
-          <%= q.content %>
-        </div>
-        <% if user_signed_in? %>
-          <div class="question__answer">
-            <h4>ログインしているので答える</h4>
-            <% q.choices.all.each do |c| %>
-              <label><%= f.radio_button(:"choice_id_#{q.id}", c.id, required: true) %><%= c.content %></label>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-    <div>
-      <%= f.submit "答える" if @training.questions.present? %>
-    </div>
+  <% @training.chapters.each do |c| %>
+    <%= link_to c.chapter_title, training_chapter_path(c) %>
   <% end %>
 </div>
