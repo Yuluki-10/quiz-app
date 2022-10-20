@@ -1,6 +1,7 @@
 <% provide(:title, "回答詳細") %>
 <h2><%= current_user.name %>さんの回答結果</h2>
 <h2 class="trainings__title">トレーニング名 ▶︎ <%= @training.title %></h2>
+<h2 class="trainings__title">章タイトル ▶︎ <%= @chapter.chapter_title %></h2>
 <div>
   <% @questions.each do |q| %>
     <div class="question__wrapper">

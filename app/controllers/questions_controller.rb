@@ -29,10 +29,11 @@ class QuestionsController < ApplicationController
 
   # POST) ユーザーが問題に答える
   def answer
-    @training = Training.find(params[:training_id])
+    @chapter = Chapter.find(params[:chapter_id])
+    @training = @chapter.training
 
     # 選んだ選択肢が、問題の数分なければバリデーション
-    unless params[:user_answer].permit!.to_hash.size == @training.questions.size
+    unless params[:user_answer].permit!.to_hash.size == @chapter.questions.size
       flash[:notice] = "全て答えを選んでください"
       redirect_back(fallback_location: root_path)
       return
@@ -45,12 +46,13 @@ class QuestionsController < ApplicationController
       ua.update(choice_id: c_id)
     end
 
-    redirect_to result_training_questions_path(@training)
+    redirect_to result_training_chapter_questions_path(@training, @chapter)
   end
 
   # GET) 回答後の、ユーザーごとの結果ページ。トレーニングごとに作成
   def result
-    @training = Training.find(params[:training_id])
+    @chapter = Chapter.find(params[:chapter_id])
+    @training = @chapter.training
     @questions = Question.where(chapter_id: params[:chapter_id]).includes(:choices, :user_answers).order(number: "ASC")
     @user_choices = UserAnswer.where(user_id: current_user.id)
   end

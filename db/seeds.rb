@@ -16,17 +16,23 @@ if Rails.env.development?
   Training.create!(
     [
       {
-        title: "テストトレーニングプログラム"
+        title: "初めての動画制作"
       },
       {
-        title: "初めての動画制作"
+        title: "初めての在宅ワーク"
+      },
+      {
+        title: "ライティングの基礎"
+      },
+      {
+        title: "デザインの基礎からバナー制作まで"
       }
     ]
   )
   chapter_titles = ["COMOLYで請け負った動画の種類", "動画編集で必要なPCスペック", "動画編集ソフトの紹介", "動画編集の基本的なやり方", "実践ワークショップ", "まとめ"]
   chapter_titles.each_with_index do |c, i|
     Chapter.create!(
-      training_id: Training.second.id,
+      training_id: Training.first.id,
       chapter_title: c,
       url: "https://www.youtube.com/embed/Vf07C_-rbKM",
       chapter_num: i + 1,
