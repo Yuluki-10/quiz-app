@@ -1,0 +1,10 @@
+<h1>これはマイページです</h1>
+<% if user_signed_in? %>
+  <h2>ユーザーネーム ▶︎ <%= current_user.name %></h2>
+  <div>
+    <p>トレーニングの進捗状況（各チャプターの問題に答えたか？）</p>
+  </div>
+<% else %>
+  <%= link_to "ログイン", new_user_session_path %>
+  <%= link_to "新規登録", new_user_registration_path %>
+<% end %>
