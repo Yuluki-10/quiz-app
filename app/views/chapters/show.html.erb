@@ -1,6 +1,6 @@
 <% provide(:title, @chapter.chapter_title) %>
 <h2 class="trainings__title"><%= @training.title %></h2>
-<%= link_to "この章を編集する", edit_training_chapter_path(@chapter), class: 'link-btn' %>
+<%= link_to "この章を編集する", edit_training_chapter_path(@training,@chapter), class: 'link-btn' %>
 <h3><%= @chapter.chapter_title %></h3>
 <% iframe = content_tag(
     :iframe,
@@ -12,6 +12,7 @@
     allowfullscreen: true
 ) %>
 <%= content_tag(:div, iframe, class: 'youtube-container') %>
+<p>第<%= @chapter.chapter_num %>章</p>
 <%= @chapter.content %>
 <%= link_to "この章の問題を作成する", new_training_chapter_question_path(@training,@chapter), class: 'link-btn' %>
 <div>

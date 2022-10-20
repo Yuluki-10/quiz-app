@@ -34,6 +34,18 @@ class ChaptersController < ApplicationController
 
   # PATCH) 「チャプター」の編集
   def update
+    @training = Training.find(params[:training_id])
+    @chapter = Chapter.find(params[:id])
+
+    if @chapter.update(chapter_params)
+      if @chapter.errors.any?
+        flash.now[:alert] = @chapter.errors.full_messages.join("\n")
+        render :new
+      else
+        flash[:notice] = "チャプターが編集されました"
+        redirect_to training_chapter_path(@training, @chapter)
+      end
+    end
   end
 
   private

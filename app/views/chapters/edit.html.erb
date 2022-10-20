@@ -3,7 +3,7 @@
   <%= @training.title %>
   のチャプターを編集
 </h2>
-<%= form_with model: @chapter, url: training_chapters_path, method: :post, local: true, class: 'trainings__form' do |f| %>
+<%= form_with model: @chapter, url: training_chapter_path, method: :patch, local: true, class: 'trainings__form' do |f| %>
   <%= f.hidden_field :training_id, :value => @training.id %>
   <div class="trainings__form-item">
     <%= f.label :chapter_title do %>
@@ -16,8 +16,8 @@
     <%= f.url_field :url %>
   </div>
   <div class="trainings__form-item">
-    <%= f.label :number, "章番号" %>
-    <%= f.select :number, [*1..20], { include_blank: '--'} %>
+    <%= f.label :chapter_num, "章番号" %>
+    <%= f.select :chapter_num, [*1..20], { include_blank: '--'} %>
   </div>
   <div class="trainings__form-item">
     <%= f.label :content, "トレーニング内容" %>

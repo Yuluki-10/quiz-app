@@ -26,9 +26,9 @@ if Rails.env.development?
   3.times do |n|
     Chapter.create!(
       training_id: Training.first.id,
-      chapter_title: "第#{n}章のタイトルです",
-      url: "https://youtu.be/embed/Vf07C_-rbKM",
-      chapter_num: n
+      chapter_title: "第#{n + 1}章のタイトルです",
+      url: "https://www.youtube.com/embed/Vf07C_-rbKM",
+      chapter_num: n + 1
     )
   end
 end

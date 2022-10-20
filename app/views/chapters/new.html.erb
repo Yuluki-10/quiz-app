@@ -16,8 +16,8 @@
     <%= f.url_field :url %>
   </div>
   <div class="trainings__form-item">
-    <%= f.label :number, "章番号" %>
-    <%= f.select :number, [*1..20], { include_blank: '--'} %>
+    <%= f.label :chapter_num, "章番号" %>
+    <%= f.select :chapter_num, [*1..20], { include_blank: '--'} %>
   </div>
   <div class="trainings__form-item">
     <%= f.label :content, "トレーニング内容" %>
