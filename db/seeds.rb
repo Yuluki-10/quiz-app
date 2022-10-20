@@ -16,19 +16,21 @@ if Rails.env.development?
   Training.create!(
     [
       {
-        title: "初めての動画制作"
+        title: "テストトレーニングプログラム"
       },
       {
-        title: "figmaのトレーニング"
+        title: "初めての動画制作"
       }
     ]
   )
-  3.times do |n|
+  chapter_titles = ["COMOLYで請け負った動画の種類", "動画編集で必要なPCスペック", "動画編集ソフトの紹介", "動画編集の基本的なやり方", "実践ワークショップ", "まとめ"]
+  chapter_titles.each_with_index do |c, i|
     Chapter.create!(
-      training_id: Training.first.id,
-      chapter_title: "第#{n + 1}章のタイトルです",
+      training_id: Training.second.id,
+      chapter_title: c,
       url: "https://www.youtube.com/embed/Vf07C_-rbKM",
-      chapter_num: n + 1
+      chapter_num: i + 1,
+      content: "<h1>動画の概要</h1><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br><br></div><h1>ポイント</h1><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br><br></div><h1>注意点</h1><div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>"
     )
   end
 end

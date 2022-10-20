@@ -10,20 +10,21 @@ class ChaptersController < ApplicationController
   def create
     @training = Training.find(params[:training_id])
 
-    @chapter = Chapter.create(chapter_params)
-    if @chapter.errors.any?
-      flash.now[:alert] = @chapter.errors.full_messages.join("\n")
-      render :new
+    @chapter = Chapter.new(chapter_params)
+    if @chapter.save
+      redirect_to training_path(@training), notice: "チャプターが作成しました"
     else
-      flash[:notice] = "チャプターが作成されました"
-      redirect_to training_path(@training)
+      flash[:alert] = @chapter.errors.full_messages.join("\n")
+      redirect_back(fallback_location: root_path) # 前のページに戻る
     end
   end
 
   # GET) 「チャプター」ページ
   def show
-    @training = Training.find(params[:training_id])
     @chapter = Chapter.find(params[:id])
+    @training = @chapter.training
+    @questions = @chapter.questions.order(number: "ASC")
+    @user_answer = UserAnswer.new
   end
 
   # GET) 「チャプター」の編集ページ
@@ -45,6 +46,9 @@ class ChaptersController < ApplicationController
         flash[:notice] = "チャプターが編集されました"
         redirect_to training_chapter_path(@training, @chapter)
       end
+    else
+      flash[:alert] = @chapter.errors.full_messages.join("\n")
+      redirect_back(fallback_location: root_path) # 前のページに戻る
     end
   end
 

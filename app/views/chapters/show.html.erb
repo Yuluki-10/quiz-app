@@ -16,12 +16,11 @@
 <%= @chapter.content %>
 <%= link_to "この章の問題を作成する", new_training_chapter_question_path(@training,@chapter), class: 'link-btn' %>
 <div>
-  <%
-=begin%>
- <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/questions/answer", method: :post, local: true, class: 'trainings__form' do |f| %>
+
+  <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/chapters/#{@chapter.id}/questions/answer", method: :post, local: true, class: 'trainings__form' do |f| %>
     <% @questions.each do |q| %>
       <div class="question__wrapper">
-        <%= link_to "この問題を編集する", edit_training_question_path(@training, q), class: 'link-btn' %>
+        <%= link_to "この問題を編集する", edit_training_chapter_question_path(@training, @chapter, q), class: 'link-btn' %>
         <h3 class="question__title">問題<%= q.number %> ▼</h3>
         <div class="question__content">
           <%= q.content %>
@@ -37,9 +36,7 @@
       </div>
     <% end %>
     <div>
-      <%= f.submit "答える" if @training.questions.present? %>
+      <%= f.submit "答える" if @chapter.questions.present? %>
     </div>
-  <% end %> 
-<%
-=end%>
+  <% end %>
 </div>

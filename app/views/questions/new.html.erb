@@ -1,8 +1,10 @@
 <% provide(:title, "問題作成ページ") %>
-<h2 class="trainings__title"><%= @training.title %>の問題を作成</h2>
-<%= form_with model: [@training ,@question], local:true, class: 'questions__form' do |f| %>
+<h2 class="trainings__title"><%= @training.title %></h2>
+<h2 class="trainings__title"><%= @chapter.chapter_title %>の問題を作成</h2>
+<%= form_with model: [@training, @chapter, @question], local:true, class: 'questions__form' do |f| %>
+  <%= f.hidden_field :training_id, :value => @training.id %>
+  <%= f.hidden_field :chapter_id, :value => @chapter.id %>
   <div class="questions__form-item">
-    <%= f.hidden_field :training_id, :value => @training.id %>
     <%= f.label :number, "設問番号" %>
     <%= f.select :number, [*1..20], { include_blank: '--'} %>
   </div>

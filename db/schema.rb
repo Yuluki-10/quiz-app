@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2022_10_19_071828) do
   create_table "chapters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "chapter_title", null: false
     t.text "url"
-    t.integer "chapter_num", null: false
+    t.integer "chapter_num", default: 0, null: false
     t.bigint "training_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

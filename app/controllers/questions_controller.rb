@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
   # GET) クイズ作成ページ
   def new
     @training = Training.find(params[:training_id])
+    @chapter = Chapter.find(params[:chapter_id])
     @question = Question.new
     # 選択肢を4つ作成できるようにbuildする
     4.times do
@@ -12,13 +13,14 @@ class QuestionsController < ApplicationController
 
   # POST) クイズの作成
   def create
-    @training = Training.find(params[:training_id])
+    @chapter = Chapter.find(params[:chapter_id])
+    @training = @chapter.training
 
     correct_index = params[:question][:choices_attributes][:is_answer] # 「正解」とした選択肢が、どの番号か取得する
     params[:question][:choices_attributes]["#{correct_index}"][:is_answer] = true # 選択肢を「正解」に設定する
     @question = Question.new(question_params)
     if @question.save
-      redirect_to trainings_path, notice: "問題を作成しました"
+      redirect_to training_chapter_path(@training, @chapter), notice: "問題を作成しました"
     else
       flash[:alert] = @question.errors.full_messages.join("\n")
       redirect_back(fallback_location: root_path) # 前のページに戻る
@@ -49,19 +51,21 @@ class QuestionsController < ApplicationController
   # GET) 回答後の、ユーザーごとの結果ページ。トレーニングごとに作成
   def result
     @training = Training.find(params[:training_id])
-    @questions = Question.where(training_id: params[:training_id]).includes(:choices, :user_answers).order(number: "ASC")
+    @questions = Question.where(chapter_id: params[:chapter_id]).includes(:choices, :user_answers).order(number: "ASC")
     @user_choices = UserAnswer.where(user_id: current_user.id)
   end
 
   # GET) クイズの編集ページ
   def edit
-    @training = Training.find(params[:training_id])
+    @chapter = Chapter.find(params[:chapter_id])
+    @training = @chapter.training
     @question = Question.find(params[:id])
   end
 
   # PATCH) クイズの編集
   def update
-    @training = Training.find(params[:training_id])
+    @chapter = Chapter.find(params[:chapter_id])
+    @training = @chapter.training
     @question = Question.find(params[:id])
 
     # 全ての選択肢の正誤をfalseにリセットする。
@@ -75,7 +79,7 @@ class QuestionsController < ApplicationController
     params[:question][:choices_attributes]["#{correct_index}"][:is_answer] = true
 
     if @question.update(question_params)
-      redirect_to trainings_path, notice: "問題を編集しました"
+      redirect_to training_chapter_path(@training, @chapter), notice: "問題を編集しました"
     else
       flash[:alert] = "編集できませんでした"
       return render :edit
@@ -85,7 +89,7 @@ class QuestionsController < ApplicationController
   private
     def question_params
       params.require(:question).permit(
-        :training_id,
+        :chapter_id,
         :number,
         :content,
         choices_attributes: [:id, :content, :is_answer, :_destroy] # :idを渡さないと、accepts_nested_attributes_forで入れ子になる値の編集更新ができない
