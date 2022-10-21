@@ -46,6 +46,9 @@ class QuestionsController < ApplicationController
       ua.update(choice_id: c_id)
     end
 
+    # そのトレーニングの全ての問題に答えたかを判定する
+    # 答えられていたら、user_training_achievementを1足す?
+
     redirect_to result_training_chapter_questions_path(@training, @chapter)
   end
 

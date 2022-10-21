@@ -15,8 +15,11 @@
 <p>第<%= @chapter.chapter_num %>章</p>
 <%= @chapter.content %>
 <%= link_to "この章の問題を作成する", new_training_chapter_question_path(@training,@chapter), class: 'link-btn' %>
-<div>
 
+<h4>ユーザーの回答・未回答状態のステータス</h4>
+<!-- 問題数() == @user_answer_total -->
+
+<div>
   <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/chapters/#{@chapter.id}/questions/answer", method: :post, local: true, class: 'trainings__form' do |f| %>
     <% @questions.each do |q| %>
       <div class="question__wrapper">
