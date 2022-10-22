@@ -33,7 +33,7 @@ class QuestionsController < ApplicationController
     @training = @chapter.training
 
     # 選んだ選択肢が、問題の数分なければバリデーション
-    unless params[:user_answer].permit!.to_hash.size == @chapter.questions.size
+    unless params[:user_answer].permit!.to_hash.size == @chapter.questions.unanswered(current_user.id).size
       flash[:notice] = "全て答えを選んでください"
       redirect_back(fallback_location: root_path)
       return

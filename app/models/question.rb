@@ -11,9 +11,22 @@ class Question < ApplicationRecord
   # 問題文をAction Textで扱えるようにする
   has_rich_text :content
 
-  # scopeメソッド。question.current_user_answeredで現在のユーザーが回答済みかフラグを立てれるか？
-  # scope :corrected, ->{
-  #   where(is_answer: true)
-  # }
+  # scope機能。現在のユーザーが回答済みかフラグを立てれるか？
+  scope :current_user_answered, ->(userid) {
+    # 中間テーブルであるuser_answerに、現在のユーザーのidがあるか
+    joins(:user_answers).where(
+      # chapters_controller.rbで、対象のチャプターに紐づいているもののみに限定済み
+      user_answers: {user_id: userid}
+    )
+  }
+
+  # currentユーザーが未回答の問題
+  scope :unanswered, ->(userid) {
+    # currentユーザーが答えていれば除外する
+    where.missing(:user_answers) || 
+    joins(:user_answers).where.not(
+      user_answers: {user_id: userid}
+    )
+  }
 
 end

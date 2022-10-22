@@ -23,7 +23,8 @@ class ChaptersController < ApplicationController
   def show
     @chapter = Chapter.find(params[:id])
     @training = @chapter.training
-    @questions = @chapter.questions.order(number: "ASC")
+    @questions = @chapter.questions.unanswered(current_user.id).order(number: "ASC")
+    @answered_questions = @chapter.questions.current_user_answered(current_user.id).order(number: "ASC")
     # @user_answer = []
     # @questions.each do |q|
     #   if ua = UserAnswer.find_by(user_id: current_user.id, question_id: q.id)
