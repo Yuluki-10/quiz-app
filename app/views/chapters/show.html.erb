@@ -16,14 +16,7 @@
 <%= @chapter.content %>
 <%= link_to "この章の問題を作成する", new_training_chapter_question_path(@training,@chapter), class: 'link-btn' %>
 
-<h4>ユーザーの回答・未回答状態のステータス</h4>
-<!-- 問題数() == @user_answer_total -->
-<% @answered_questions.each do |aq| %>
-  <p>この問題のid？ ▶︎ <%= aq.id %></p>
-  <p>この問題の内容 ▶︎ <%= aq.content %></p>
-<% end %>
-
-<div>
+<div class="unanswered-question__section">
   <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/chapters/#{@chapter.id}/questions/answer", method: :post, local: true, class: 'trainings__form' do |f| %>
     <% @questions.each do |q| %>
       <div class="question__wrapper">
@@ -43,7 +36,37 @@
       </div>
     <% end %>
     <div>
-      <%= f.submit "答える" if @chapter.questions.present? %>
+      <%= f.submit "答える" if @questions.present? %>
+    </div>
+  <% end %>
+</div>
+
+
+<div class="answered-question__section">
+  <h2>あなたが回答済みの問題</h2>
+  <% @answered_questions.each do |aq| %>
+    <div class="question__wrapper">
+      <%= link_to "この問題を編集する", edit_training_chapter_question_path(@training, @chapter, aq), class: 'link-btn' %>
+      <h3 class="question__title">問題<%= aq.number %> ▼</h3>
+      <div class="question__content">
+        <%= aq.content %>
+      </div>
+      <div>
+        <p>あなたはすでに回答済みです</p>
+        <p>答え ▶︎ <%= aq.choices.corrected[0].content %></p>
+        <p>あなたの回答結果 ▶︎
+          <% aq.user_answers.each do |ua| %>
+            <% if ua.user_id == current_user.id %>
+              <%= aq.choices.find(ua.choice_id).content %>
+              <% if ua.choice_id == aq.choices.corrected[0].id %>
+                <p class="-true"> ○ あなたは正解しました</p>
+              <% else %>
+                <p class="-false"> X あなたは不正解です</p>
+              <% end %>
+            <% end %>
+          <% end %>
+        </p>
+      </div>
     </div>
   <% end %>
 </div>

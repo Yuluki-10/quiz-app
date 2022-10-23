@@ -24,7 +24,8 @@ class ChaptersController < ApplicationController
     @chapter = Chapter.find(params[:id])
     @training = @chapter.training
     @questions = @chapter.questions.unanswered(current_user.id).order(number: "ASC")
-    @answered_questions = @chapter.questions.current_user_answered(current_user.id).order(number: "ASC")
+    @answered_questions = @chapter.questions.current_user_answered(current_user.id).includes(:choices, :user_answers).order(number: "ASC")
+    # @user_choices = UserAnswer.where(user_id: current_user.id)
     # @user_answer = []
     # @questions.each do |q|
     #   if ua = UserAnswer.find_by(user_id: current_user.id, question_id: q.id)
