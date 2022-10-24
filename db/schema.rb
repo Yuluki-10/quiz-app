@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2022_10_19_071828) do
   end
 
   create_table "user_training_achievements", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "achievement_times"
+    t.integer "achievement_times", default: 0, null: false
     t.bigint "user_id", null: false
     t.bigint "training_id", null: false
     t.datetime "created_at", precision: 6, null: false

@@ -47,7 +47,15 @@ class QuestionsController < ApplicationController
     end
 
     # そのトレーニングの全ての問題に答えたかを判定する
+    # tc = @training.chapters.count
+    tc = @training.chapters.includes(:questions)
+    # tc[0].questions.sizeで取れた。 => トレーニングの問題数はeachで回してわかる
+    # tc[0].questions.current_user_answered(current_user.id).sizeで、そのチャプターの、現在のユーザーが既に答えている問題数がわかる！
+    # us = @training.chapters.questions.answered(current_user.id).size
+    binding.pry
     # 答えられていたら、user_training_achievementを1足す?
+    # uta = UserTrainingAchievement.find_or_initialize_by(user_id: current_user.id, training_id: @training.id)
+    # uta.increment(:achievement_times, 1)
 
     redirect_to result_training_chapter_questions_path(@training, @chapter)
   end
