@@ -3,6 +3,9 @@
   <h2>ユーザーネーム ▶︎ <%= current_user.name %></h2>
   <div>
     <p>トレーニングの進捗状況（各チャプターの問題に答えたか？）</p>
+    <% @user_training_achievements.each do |uta| %>
+      <p>【<%= link_to "#{uta.training.title}", training_path(uta.training) %>】を、<%= uta.achievement_times %>回クリアしています</p>
+    <% end %>
   </div>
 <% else %>
   <%= link_to "ログイン", new_user_session_path %>

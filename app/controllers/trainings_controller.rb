@@ -44,6 +44,11 @@ class TrainingsController < ApplicationController
     end
   end
 
+  # GET)マイページ
+  def mypage
+    @user_training_achievements = UserTrainingAchievement.where(user_id: current_user.id)
+  end
+
   private
     def training_params
       params.require(:training).permit(:title, :categories)
