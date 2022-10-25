@@ -3,8 +3,11 @@
 <div class="trainings__list">
   <h2 class="trainings__title">目次</h2>
   <ol>
-    <% @training.chapters.all.each do |c| %>
-      <li><%= link_to c.chapter_title, training_chapter_path(@training, c) %></li>
+    <% @training.chapters.each do |c| %>
+      <li>
+        <%= link_to c.chapter_title, training_chapter_path(@training, c) %>
+        全ての問題数 ▶︎ <%= c.questions.size %> | userの回答数 ▶︎ <%= c.questions.current_user_answered(current_user.id).size %>
+      </li>
     <% end %>
   </ol>
 </div>

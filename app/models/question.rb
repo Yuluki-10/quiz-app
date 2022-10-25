@@ -24,9 +24,7 @@ class Question < ApplicationRecord
   scope :unanswered, ->(userid) {
     # currentユーザーが答えていれば除外する
     where.missing(:user_answers) || 
-    joins(:user_answers).where.not(
-      user_answers: {user_id: userid}
-    )
+    joins(:user_answers).where.not(user_answers: {user_id: userid})
   }
 
 end
