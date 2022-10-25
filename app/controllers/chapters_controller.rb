@@ -25,18 +25,10 @@ class ChaptersController < ApplicationController
     @training = @chapter.training
     @questions = @chapter.questions.unanswered(current_user.id).order(number: "ASC")
     @answered_questions = @chapter.questions.current_user_answered(current_user.id).includes(:choices, :user_answers).order(number: "ASC")
-    # @user_choices = UserAnswer.where(user_id: current_user.id)
-    # @user_answer = []
-    # @questions.each do |q|
-    #   if ua = UserAnswer.find_by(user_id: current_user.id, question_id: q.id)
-    #     # 回答済みの問題に、回答済みフラグを立てる?
-    #     @user_answer.push(ua)
-    #   else
-    #     @user_answer.push(UserAnswer.new)
-    #   end
-    # end
     @user_answer = UserAnswer.new
+
     # binding.pry
+
   end
 
   # GET) 「チャプター」の編集ページ

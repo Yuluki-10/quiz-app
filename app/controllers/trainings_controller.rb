@@ -24,12 +24,6 @@ class TrainingsController < ApplicationController
   # GET) トレーニングページ
   def show
     @training = Training.includes(chapters: [questions: [:user_answers]]).find(params[:id])
-    # binding.pry
-    # @training.chapters.each do |c|
-    #   c.questions.current_user_answered(current_user.id).size
-    # end
-    # @questions = @training.questions.order(number: "ASC")
-    # @user_answer = UserAnswer.new
   end
 
   # GET) トレーニング編集ページ

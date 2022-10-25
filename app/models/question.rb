@@ -23,8 +23,9 @@ class Question < ApplicationRecord
   # currentユーザーが未回答の問題
   scope :unanswered, ->(userid) {
     # currentユーザーが答えていれば除外する
-    where.missing(:user_answers) || 
-    joins(:user_answers).where.not(user_answers: {user_id: userid})
+    # where.missing(:user_answers)
+    # orメソッドを使用するために、left_joinsによる"左外部"結合が必要。missingは使用しない
+    left_joins(:user_answers).where(user_answers: {id: nil}).or(left_joins(:user_answers).where.not(user_answers: {user_id: userid}))
   }
 
 end
