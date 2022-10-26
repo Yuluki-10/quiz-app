@@ -20,6 +20,11 @@ class Question < ApplicationRecord
     )
   }
 
+  # クラスメソッドに変更してみる
+  # def self.unanswered_method(userid) {
+
+  # }
+
   # currentユーザーが未回答の問題
   scope :unanswered, ->(userid) {
     # currentユーザーが答えていれば除外する
@@ -27,6 +32,7 @@ class Question < ApplicationRecord
     # where.missing(:user_answers)
     # orメソッドを使用するために、left_outer_joinsによる"左外部"結合が必要。missingは使用しない
     left_outer_joins(:user_answers).where(user_answers: {id: nil}).or(left_outer_joins(:user_answers).where.not(user_answers: {user_id: userid}))
+    # left_outer_joins(:user_answers).where(user_answers: {id: nil}).or(left_outer_joins(:user_answers).where.not(id: where(user_answer: {user_id: userid}).ids))
   }
 
 end

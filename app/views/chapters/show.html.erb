@@ -29,6 +29,7 @@
 
 
 <% if user_signed_in? %>
+<% if @questions.present? %>
   <div class="unanswered-question__section">
     <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/chapters/#{@chapter.id}/questions/answer", method: :post, local: true, class: 'trainings__form' do |f| %>
       <% @questions.each do |q| %>
@@ -53,7 +54,7 @@
       </div>
     <% end %>
   </div>
-
+<% end %>
 
   <div class="answered-question__section">
     <h2>あなたが回答済みの問題</h2>
