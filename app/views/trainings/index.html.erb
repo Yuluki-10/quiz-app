@@ -4,6 +4,18 @@
   <% @trainings.each do |training| %>
     <div class="trainings__list-item">
       <%= link_to "#{training.title}", training_path(training) %>
+      全<%= training.chapters.size %>章 | 
+      <% if user_signed_in? %>
+        あなたは
+        <% clear_chapter_size = 0 %>
+        <% training.chapters.each do |c| %>
+          <% user_answer_size = 0 %>
+          <% user_answer_size = c.questions.current_user_answered(current_user.id).size %>
+          <% clear_chapter_size += 1 if  c.questions.present? && c.questions.size == user_answer_size %>
+        <% end %>
+        <%= clear_chapter_size %>
+        章分終了済みです
+      <% end %>
     </div>
   <% end %>
 </div>

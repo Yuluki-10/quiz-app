@@ -1,9 +1,6 @@
 <% provide(:title, @chapter.chapter_title) %>
 <h2 class="trainings__title"><%= @training.title %></h2>
 <%= link_to "この章を編集する", edit_training_chapter_path(@training,@chapter), class: 'link-btn' %>
-<p>
-  <%= @chapter.questions.size %>
-</p>
 <h2>
   <% if @chapter.questions.size != 0 && @chapter.questions.size == @answered_questions.size %>
     あなたはこのチャプターの問題を全て回答済みです
@@ -30,57 +27,60 @@
 <%= @chapter.content %>
 <%= link_to "この章の問題を作成する", new_training_chapter_question_path(@training,@chapter), class: 'link-btn' %>
 
-<div class="unanswered-question__section">
-  <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/chapters/#{@chapter.id}/questions/answer", method: :post, local: true, class: 'trainings__form' do |f| %>
-    <% @questions.each do |q| %>
-      <div class="question__wrapper">
-        <%= link_to "この問題を編集する", edit_training_chapter_question_path(@training, @chapter, q), class: 'link-btn' %>
-        <h3 class="question__title">問題<%= q.number %> ▼</h3>
-        <div class="question__content">
-          <%= q.content %>
-        </div>
-        <% if user_signed_in? %>
-          <div class="question__answer">
-            <h4>ログインしているので答える</h4>
-            <% q.choices.all.each do |c| %>
-              <label><%= f.radio_button(:"choice_id_#{q.id}", c.id, required: true) %><%= c.content %></label>
-            <% end %>
+
+<% if user_signed_in? %>
+  <div class="unanswered-question__section">
+    <%= form_with model: @user_answer, url: "/trainings/#{@training.id}/chapters/#{@chapter.id}/questions/answer", method: :post, local: true, class: 'trainings__form' do |f| %>
+      <% @questions.each do |q| %>
+        <div class="question__wrapper">
+          <%= link_to "この問題を編集する", edit_training_chapter_question_path(@training, @chapter, q), class: 'link-btn' %>
+          <h3 class="question__title">問題<%= q.number %> ▼</h3>
+          <div class="question__content">
+            <%= q.content %>
           </div>
-        <% end %>
+          <% if user_signed_in? %>
+            <div class="question__answer">
+              <h4>ログインしているので答える</h4>
+              <% q.choices.all.each do |c| %>
+                <label><%= f.radio_button(:"choice_id_#{q.id}", c.id, required: true) %><%= c.content %></label>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div>
+        <%= f.submit "答える" if @questions.present? %>
       </div>
     <% end %>
-    <div>
-      <%= f.submit "答える" if @questions.present? %>
-    </div>
-  <% end %>
-</div>
+  </div>
 
 
-<div class="answered-question__section">
-  <h2>あなたが回答済みの問題</h2>
-  <% @answered_questions.each do |aq| %>
-    <div class="question__wrapper">
-      <%= link_to "この問題を編集する", edit_training_chapter_question_path(@training, @chapter, aq), class: 'link-btn' %>
-      <h3 class="question__title">問題<%= aq.number %> ▼</h3>
-      <div class="question__content">
-        <%= aq.content %>
-      </div>
-      <div>
-        <p>あなたはすでに回答済みです</p>
-        <p>答え ▶︎ <%= aq.choices.corrected[0].content %></p>
-        <p>あなたの回答結果 ▶︎
-          <% aq.user_answers.each do |ua| %>
-            <% if ua.user_id == current_user.id %>
-              <%= aq.choices.find(ua.choice_id).content %>
-              <% if ua.choice_id == aq.choices.corrected[0].id %>
-                <p class="-true"> ○ あなたは正解しました</p>
-              <% else %>
-                <p class="-false"> X あなたは不正解です</p>
+  <div class="answered-question__section">
+    <h2>あなたが回答済みの問題</h2>
+    <% @answered_questions.each do |aq| %>
+      <div class="question__wrapper">
+        <%= link_to "この問題を編集する", edit_training_chapter_question_path(@training, @chapter, aq), class: 'link-btn' %>
+        <h3 class="question__title">問題<%= aq.number %> ▼</h3>
+        <div class="question__content">
+          <%= aq.content %>
+        </div>
+        <div>
+          <p>あなたはすでに回答済みです</p>
+          <p>答え ▶︎ <%= aq.choices.corrected[0].content %></p>
+          <p>あなたの回答結果 ▶︎
+            <% aq.user_answers.each do |ua| %>
+              <% if ua.user_id == current_user.id %>
+                <%= aq.choices.find(ua.choice_id).content %>
+                <% if ua.choice_id == aq.choices.corrected[0].id %>
+                  <p class="-true"> ○ あなたは正解しました</p>
+                <% else %>
+                  <p class="-false"> X あなたは不正解です</p>
+                <% end %>
               <% end %>
             <% end %>
-          <% end %>
-        </p>
+          </p>
+        </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% end %>

@@ -6,7 +6,7 @@
     <% @training.chapters.each do |c| %>
       <li>
         <%= link_to c.chapter_title, training_chapter_path(@training, c) %>
-        全ての問題数 ▶︎ <%= c.questions.size %> | userの回答数 ▶︎ <%= c.questions.current_user_answered(current_user.id).size %>
+        全ての問題数 ▶︎ <%= c.questions.size %> | userの回答数 ▶︎ <%= c.questions.current_user_answered(current_user.id).size if user_signed_in? %>
       </li>
     <% end %>
   </ol>

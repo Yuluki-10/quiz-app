@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="2QaL74lPtXQvaTR88x6H" name="自分アプリ用">
-        <mxGraphModel dx="802" dy="380" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="521" dy="224" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -454,7 +454,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="SDaIyHZJQDrLKuATcfrd" name="Comoly-共有用">
-        <mxGraphModel dx="521" dy="247" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="802" dy="345" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="jNKCCIeA93wd6vsSkHGc-0"/>
                 <mxCell id="jNKCCIeA93wd6vsSkHGc-1" parent="jNKCCIeA93wd6vsSkHGc-0"/>

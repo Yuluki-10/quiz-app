@@ -1,7 +1,8 @@
 class TrainingsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   # GET) トレーニング一覧
   def index
-    @trainings = Training.all
+    @trainings = Training.includes(chapters: [questions: [:user_answers]]).all
   end
 
   # GET) トレーニング作成ページ
