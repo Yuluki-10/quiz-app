@@ -24,8 +24,8 @@ class ChaptersController < ApplicationController
   def show
     @chapter = Chapter.find(params[:id])
     @training = @chapter.training
-    @questions = @chapter.questions.unanswered(current_user.id).order(number: "ASC")
     @answered_questions = @chapter.questions.current_user_answered(current_user.id).includes(:choices, :user_answers).order(number: "ASC")
+    @questions = @chapter.questions.unanswered(current_user.id).includes(:user_answers).order(number: "ASC") - @answered_questions
     @user_answer = UserAnswer.new
 
     # binding.pry
