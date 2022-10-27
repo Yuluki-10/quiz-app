@@ -28,9 +28,9 @@ class ChaptersController < ApplicationController
     @questions = @chapter.questions.unanswered(current_user.id).includes(:user_answers).order(number: "ASC") - @answered_questions
     @user_answer = UserAnswer.new
 
-    # binding.pry
-
   end
+
+  # 
 
   # GET) 「チャプター」の編集ページ
   def edit

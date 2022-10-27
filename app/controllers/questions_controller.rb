@@ -56,8 +56,6 @@ class QuestionsController < ApplicationController
       current_user_answered_size += tc.questions.current_user_answered(current_user.id).size
     end
 
-    # binding.pry
-
     # 全てに回答済みなら、user_training_achievementを1足す?
     if training_chapter_questions_size == current_user_answered_size
       uta = UserTrainingAchievement.find_or_initialize_by(user_id: current_user.id, training_id: @training.id)

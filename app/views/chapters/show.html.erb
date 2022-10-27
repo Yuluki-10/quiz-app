@@ -1,5 +1,6 @@
 <% provide(:title, @chapter.chapter_title) %>
 <h2 class="trainings__title"><%= @training.title %></h2>
+<button>この章の問題をやり直す</button>
 <%= link_to "この章を編集する", edit_training_chapter_path(@training,@chapter), class: 'link-btn' %>
 <h2>
   <% if @chapter.questions.size != 0 && @chapter.questions.size == @answered_questions.size %>
