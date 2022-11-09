@@ -30,8 +30,6 @@ class ChaptersController < ApplicationController
 
   end
 
-  # 
-
   # GET) 「チャプター」の編集ページ
   def edit
     @training = Training.find(params[:training_id])
